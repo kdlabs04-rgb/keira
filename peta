@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Literary Composition Gallery</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background-color: #f3eaff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #5b2c83;
+            font-size: 36px;
+        }
+
+        .instruction {
+            font-size: 18px;
+            color: #444;
+        }
+
+        h2 {
+            color: #7a3e9d;
+            margin-top: 45px;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           GALLERY
+        ========================= */
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 250px;
+            background-color: white;
+            border: 4px solid #7a3e9d;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 5px 12px #c9b8d8;
+        }
+
+        .card label {
+            cursor: pointer;
+        }
+
+        .card img {
+            display: block;
+            width: 230px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .card img:hover {
+            opacity: 0.8;
+        }
+
+        .card h3 {
+            color: #5b2c83;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            margin-top: 5px;
+        }
+
+        /* =========================
+           HIDE CHECKBOXES
+        ========================= */
+
+        .popup-check {
+            display: none;
+        }
+
+        /* =========================
+           POPUP BACKGROUND
+        ========================= */
+
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        /* SHOW POPUP WHEN CHECKED */
+
+        #poem:checked ~ #poemPopup,
+        #essay:checked ~ #essayPopup,
+        #story:checked ~ #storyPopup,
+        #tula:checked ~ #tulaPopup,
+        #sanaysay:checked ~ #sanaysayPopup {
+            display: block;
+        }
+
+        /* =========================
+           POPUP BOX
+        ========================= */
+
+        .popup-box {
+            background-color: white;
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px black;
+            position: relative;
+        }
+
+        /* =========================
+           CLOSE BUTTON
+        ========================= */
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #7a3e9d;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .close:hover {
+            color: red;
+        }
+
+        /* =========================
+           POPUP TITLE
+        ========================= */
+
+        .popup-title {
+            color: #5b2c83;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 5px;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           TEXT + PICTURE BESIDE EACH OTHER
+        ========================= */
+
+        .composition {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 30px;
+            text-align: left;
+        }
+
+        .composition-text {
+            width: 58%;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .composition-picture {
+            width: 42%;
+            text-align: center;
+            position: sticky;
+            top: 20px;
+        }
+
+        .composition-picture img {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid #7a3e9d;
+        }
+
+        /* STORY HEADINGS */
+
+        .composition-text h3 {
+            color: #7a3e9d;
+            margin-top: 25px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media screen and (max-width: 800px) {
+
+            .composition {
+                flex-direction: column;
+            }
+
+            .composition-text,
+            .composition-picture {
+                width: 100%;
+            }
+
+            .composition-picture {
+                position: static;
+                order: -1;
+            }
+
+            .composition-picture img {
+                height: 300px;
+            }
+
+            .popup {
+                padding: 10px;
+            }
+
+            .popup-box {
+                width: 96%;
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>📚 Literary Composition Gallery</h1>
+
+    <p class="instruction">
+        <b>Click a picture to read its literary composition.</b>
+    </p>
+
+
+    <!-- =====================================
+         HIDDEN CHECKBOXES
+    ====================================== -->
+
+    <input type="checkbox" id="poem" class="popup-check">
+    <input type="checkbox" id="essay" class="popup-check">
+    <input type="checkbox" id="story" class="popup-check">
+    <input type="checkbox" id="tula" class="popup-check">
+    <input type="checkbox" id="sanaysay" class="popup-check">
+
+
+    <!-- =====================================
+         ENGLISH
+    ====================================== -->
+
+    <h2> English Literary Compositions</h2>
+
+    <div class="gallery">
+
+
+        <!-- POEM -->
+
+        <div class="card">
+
+            <label for="poem">
+                <img src="poem.jpg.jpg" alt="Self Discovery">
+            </label>
+
+            <h3>POEM</h3>
+
+            <p><b>Self Discovery</b></p>
+
+        </div>
+
+
+        <!-- ESSAY -->
+
+        <div class="card">
+
+            <label for="essay">
+                <img src="personaltransformation.jpg.jpg"> 
+						
+            </label>
+
+            <h3>ESSAY</h3>
+
+            <p><b>Personal Transformation</b></p>
+
+        </div>
+
+
+        <!-- SHORT STORY -->
+
+        <div class="card">
+
+            <label for="story">
+                <img src="shortstory.jpg.jpg"
+                     alt="Courage Over Fear">
+            </label>
+
+            <h3>SHORT STORY</h3>
+
+            <p><b>Courage Over Fear</b></p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         FILIPINO
+    ====================================== -->
+
+    <h2>🇵🇭 Filipino Literary Compositions</h2>
+
+    <div class="gallery">
+
+
+        <!-- TULA -->
+
+        <div class="card">
+
+            <label for="tula">
+                <img src="tula.jpg.jpg" alt="Tula">
+            </label>
+
+            <h3>TULA</h3>
+
+            <p><b>Singil ng Katiwalian</b></p>
+
+        </div>
+
+
+        <!-- SANAYSAY -->
+
+        <div class="card">
+
+            <label for="sanaysay">
+                <img src="sanaysay.jpg.jpg"
+                     alt="School Safety">
+            </label>
+
+            <h3>SANAYSAY</h3>
+
+            <p><b>School Safety</b></p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         POEM POPUP
+    ====================================================== -->
+
+    <div id="poemPopup" class="popup">
+
+        <div class="popup-box">
+
+            <label for="poem" class="close">&times;</label>
+
+            <h2 class="popup-title">🌱 Self Discovery</h2>
+
+            <div class="composition">
+
+
+                <div class="composition-text">
+
+                    <p>
+                        I used to wonder who I was,<br>
+                        Trying to fit in, trying to belong.<br>
+                        I followed roads that others chose,<br>
+                        Even when they felt completely wrong.
+                    </p>
+
+                    <p>
+                        But as I grew, I learned to see<br>
+                        That I don't have to be like them.<br>
+                        I can make mistakes and start again,<br>
+                        And still be proud of who I am.
+                    </p>
+
+                    <p>
+                        I discovered things I never knew,<br>
+                        My strengths, my dreams, the things I fear.<br>
+                        And even when I lose my way,<br>
+                        I know that I can find it here.
+                    </p>
+
+                    <p>
+                        I may not know my future yet,<br>
+                        And that's completely okay.<br>
+                        I'm still learning, still becoming,<br>
+                        And finding myself every day.
+                    </p>
+
+                </div>
+
+
+                <div class="composition-picture">
+
+                    <img src="poem.jpg.jpg" alt="Self Discovery">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ESSAY POPUP
+    ====================================================== -->
+
+    <div id="essayPopup" class="popup">
+
+        <div class="popup-box">
+
+            <label for="essay" class="close">&times;</label>
+
+            <h2 class="popup-title">🧠 Personal Transformation</h2>
+
+            <div class="composition">
+
+
+                <div class="composition-text">
+
+                    <p>
+                        Personal transformation is about becoming a better version of yourself through learning and personal experience. One of the most important types of personal transformation is mental health. Mental health transformation is a phrase that gets thrown around loosely, but it points at something precise, durable, structural change in how a person processes experience. Mental health affects our decisions, how we think, feel about other people, and how we respond to different types of situations.
+                    </p>
+
+                    <p>
+                        Some examples are not feeling better for a week after a good night’s sleep. Not a mood boost after a vacation. Actual shifts in thought patterns, emotional responses, and behavior that persist under pressure. When we take control of our mental health, we become confident, stronger, and become ready for future challenges.
+                    </p>
+
+                    <p>
+                        Mental health transformation describes lasting, intentional change in how a person thinks, feels, and behaves, not just symptom relief. Cognitive behavioral therapy, mindfulness, and regular exercise each have strong research backing for reducing anxiety, depression, and chronic stress. The brain retains the ability to structurally reorganize throughout adulthood, meaning psychological change is biological, not just motivational. Untreated mental health conditions reduce life expectancy, increase physical health risks, and impair daily functioning far more than most people realize.
+                    </p>
+
+                    <p>
+                        Promotion and prevention efforts aim to improve mental health by addressing individual, social and structural determinants of mental health. Interventions can be designed for individuals, specific groups or whole populations. Education, labour, justice, transport, environment, housing, and welfare sectors all have vital roles. Key strategies include limiting access to means, promoting responsible reporting, supporting social and emotional learning for adolescents, and ensuring early intervention. Among these, school-based social and emotional learning programmes are especially effective across all income levels. Mental health at work is a growing area of interest and can be supported through legislation and regulation, workplace policies, manager training and targeted interventions for workers.
+                    </p>
+
+                    <p>
+                        The relapse problem in mental health isn’t a character flaw, it’s a structural feature of how the brain works. Neural pathways associated with old patterns don’t disappear when new ones form; they become less active. Under stress, fatigue, or disrupted routine, the brain defaults to established circuits. The old pattern is still there, just quieter. Which is why people who’ve worked hard on their mental health can find themselves, in a difficult period, reverting to exactly the responses they thought they’d moved past. It’s environment and routine. The research on habit formation is clear behavior is shaped primarily by context, not intention. People maintain mental health improvements when those improvements are embedded in their daily structure, a consistent sleep schedule, regular therapy appointments, physical movement built into the week, relationships that support rather than undermine their efforts. Daily practices for a healthier mind work because they reduce the reliance on motivation, which fluctuates, and increase reliance on structure, which doesn’t.
+                    </p>
+
+                    <p>
+                        In conclusion, personal transformation in mental health is a gradual process of developing healthier thoughts, emotions, behaviors, and habits. It is not about becoming perfect or never experiencing difficulties again. Instead, it is about learning how to handle challenges, recover from setbacks, and continue growing. With personal effort, professional support, healthy routines, and supportive communities, people can build stronger and healthier lives.
+                    </p>
+
+                </div>
+
+
+                <div class="composition-picture">
+
+                    <img src="personaltransformation.jpg.jpg"
+                         alt="Personal Transformation">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SHORT STORY POPUP
+    ====================================================== -->
+
+    <div id="storyPopup" class="popup">
+
+        <div class="popup-box">
+
+            <label for="story" class="close">&times;</label>
+
+            <h2 class="popup-title">🦸 Courage Over Fear</h2>
+
+            <div class="composition">
+
+
+                <div class="composition-text">
+
+                    <h3>Exposition</h3>
+
+                    <p>
+                        Biboy started saying, “Do you think I’m messing around?” Biboy then pulled out a two-pronged fork. Baljeit was shocked. Baljeit cried out, “Please don’t hurt me!”
+                    </p>
+
+
+                    <h3>Inciting Incident</h3>
+
+                    <p>
+                        In the city of Farmtropolis, a sheep named Baljeit Da Sheep lived. Baljeit wasn’t like any other sheep; he was intelligent. He only had one friend, Dinkity Da Horsity. Baljeit was on his way to his new school, named Chikren University for Gifted Animals. On the way, he picked up Dinkity from his house, and they started their journey to school. As they entered the school, a pig came up to them and said, “Yo, what are these poor, broke, needy, charity, platelicker animals doing here? Get out of my campus right now, peasants!” As Baljeit tried to stand up for themselves, the pig shoved past them and exclaimed in disgust. A little duck came up to them and said, “What are you guys doing? Are you guys trying to get killed?” Baljeit replied, “I’m sorry, but who was he?” The duck responded, “He’s Biboy Biggy Ur-Nammu, the son of the university’s principal’s best friend! He can get you guys expelled from this school!” After learning this, Baljeit and Dinkity started avoiding Biboy and his gang, but it wasn’t until they found out they were in the same class as him and his friends. As days turned into weeks, Dinkity became the laughingstock of the class because of his appearance, while Baljeit simply flew under the radar to avoid the bullying. Dinkity felt betrayed and avoided Baljeit.
+                    </p>
+
+
+                    <h3>Rising Action</h3>
+
+                    <p>
+                        One day, Baljeit finally stood up for Dinkity, resulting in Biboy throwing a tantrum at Baljeit. Biboy shouted in anger, “HOW DARE YOU USELESS LITTLE LOW-LIFE TALK BACK TO ME!” As Baljeit realized what he had done, he ran out of the classroom and into the nearby restroom. He was startled by the janitor cleaning the restroom. The janitor asked why he was in such a panic; Baljeit then replied, stuttering, “I accidentally angered Biboy; please don’t tell him I’m here.” The janitor responded, “I won’t; don’t worry.” Baljeit thanked the janitor and asked what his name was. The janitor then said, “My name is Johnni Torres. I’ve been working for this university since the first day of its opening.” Baljeit was finally feeling relieved until he heard footsteps right outside the door. Biboy barged into the restroom and stumbled upon Johnni Torres all alone, with no sign of Baljeit. Biboy clicked his tongue and said, “Oi, have you seen a sheep running around here?” The unbothered bull just shook his head and continued to mop the restroom floors. Biboy stomped his feet and fled the restroom. Baljeit asked, “Is he gone?” Johnni replied, “Yeah, kid, he’s gone.” As Baljeit emerged from the cubicle, he thanked Johnni and went out of the restroom to head into his next class; thankfully, Biboy wasn’t in that class. As the school day went by, Biboy and his gang were waiting for Baljeit at the university’s gates. Then, Baljeit slipped into the crowd, running for dear life. As Baljeit navigated through the busy crowd of Chikren University, he noticed Biboy’s gang waiting at every exit of the campus. He didn’t have a choice but to run back to the kind and wise janitor, Johnni Torres. After a few close calls from Biboy’s Gang, the trembling sheep finally made his way to Johnni’s usual area. Johnni, the calm, collected bull, asked, “What's with the rush, Kid?” Baljeit took one last peek outside the utility room door and finally replied to Johnni, “They’re still on my tail, Mr. Johnni.” Johnni chuckled and exclaimed, “Mr. Johnni...” and exclaimed, “Am I that old, Kid? Johnni is okay.” Baljeit started stuttering, and Johnni chuckled and blurted out, “Jeez, you're a timid one.” After a few minutes of silence, Baljeit finally picked up the courage to peek out the door again and, to no surprise, the hall was still crowded; but there were no signs of Biboy’s Gang anywhere. Baljeit turned to Johnni and bowed down deeply and said, “Thank you, Johnni. I won’t forget about you.” Johnni acknowledged his kind and genuine words and gave him a pat on the back. “Don’t mention it. Be careful out there.” Baljeit smiled warmly and closed the door behind him as he left. As he walked through the busy and loud crowd, as he walked closer to the exit, every step he took felt like he was being watched, and sure enough, the furious and fuming pig alongside his gang ran after Baljeit, making the timid little sheep run blindly. After minutes of running, he finally got cornered by Biboy and his gang in an alleyway. Baljeit, with no other choice, backed up into the corner of the alley.
+                    </p>
+
+
+                    <h3>Climax</h3>
+
+                    <p>
+                        Biboy and his gang surrounded the trembling little sheep, and Baljeit thought to himself, “Oh jeez, what am I supposed to do?” He eventually backed up to the cold brick wall of the alley, then wondered to himself, “Why am I even putting up with this? I’m sick and tired of this nepo baby!” Before he could speak up, Biboy started saying, “Do you think I’m messing around?” Biboy then pulled out a two-pronged fork. Baljeit was shocked and started backing up more, despite the brick wall behind the frail and trembling sheep. Before Biboy could stab Baljeit, a big, smelly cow shoved the raging pig, enraging Biboy more. Biboy snapped back at the cow, “WHO IN THE LAMB CHOPS ARE YOU?” The cow then scoffed at the fuming pig and retorted, “It’s none of your business.” Then he reached into his pockets, making Biboy and his gang tremble, and his gang left him there all alone. The once-raging pig was now trembling. The cow stomped his foot, and Biboy went running, while Baljeit stood there, frozen and curious about who this cow was. The cow, noticing the tension in Baljeit, said, “Relax, I won’t hurt you.” The curious sheep tilted his head at the cow, still confused. The cow chuckled and said, “My name is Moocus Moo III, but you can call me Moo.” Baljeit nodded in respect and bowed down. After a few seconds, he quickly added, “Thanks, Moo. He finally got what he deserved.”
+                    </p>
+
+
+                    <h3>Falling Action</h3>
+
+                    <p>
+                        After the tense altercation with Biboy, Baljeit roamed the streets of Farmtropolis with the sun already setting. For a few moments, it was finally peaceful for Baljeit. As it became darker, he finally arrived back at his old shack. He entered and quickly fixed his boots near the door and walked to his futon to get some rest. As the tired sheep lay there, he thought to himself, “I hope Dinkity is alright,” and went to bed. The next morning, he was woken up by his friend knocking on the door, Dinkity Da Horsity. This only meant one thing. Baljeit was late for school. Without wasting any time, Baljeit didn't bother to take a shower; he ran to his boots, nearly tripping, but successfully grabbed the boots and opened the door. As the doorknob twisted, Baljeit immediately knelt down to fix his boots. After a few moments, Baljeit finally finished fixing his boots. The Horse and the Sheep ran through the slums of Farmtropolis, just a normal day for the two. As they ran, they saw a limousine with two arguing pigs inside: Biboy Biggy Ur-nammu and his father, Bong Biggie Namu, the mayor. Curiosity got the best of Baljeit and Dinkity, and they walked closer to the limousine, crouching behind the window. As they remained there, they were overhearing the conversation of the Mayor of Farmtropolis and the “Notorious Bully of Chikren University”. Biboy fumed in response, “Father, It’s not my fault that I woke up late!” and then Bong snapped back with, “I told you many times to sleep early! What did you do? You slept late, yet again!” Biboy retaliated verbally, “I SLEPT AROUND 10-11 PM! HOW IS THAT CONSIDERED LATE?” Then, Bong looked at his son in disgust, then slapped him, leaving a handmark on Biboy’s cheek and snapped at his son, “HOW DARE YOU TALK TO UR FATHER LIKE THAT! I DID NOT RAISE YOU TO BE DISRESPECTFUL!” After receiving those words, Biboy just sat there stunned and tearing up while holding his red cheek. And for a few moments, the parked limousine that was once loud grew quiet. Biboy kicked the conventional doors open and slammed them behind him, running to his empire inside the campus of Chikren University. Baljeit and Dinkity finally stood up from their position, shocked not just by the argument, but by the Mayor’s actions towards his own son.
+
+                        <br><br>
+
+                        <i>FLASHBACK</i><br><br>
+
+                        Biboy wasn't always like this; he used to be kind and charitable to others. Due to his father's abuse and neglect, Biboy grew up with bad habits like being arrogant, thinking everything can be solved with money, and so on. His father, the Mayor, was always busy, causing him to neglect his one and only son.
+
+                        <br><br>
+
+                        <i>PRESENT</i><br><br>
+
+                        Baljeit and Dinkity snapped out of their trance and ran after Biboy, hoping to cheer him up.
+                    </p>
+
+
+                    <h3>Resolution</h3>
+
+                    <p>
+                        Baljeit and Dinkity caught up to Biboy; he sat in the desolate gym closet, crying and sniffling. When Biboy saw Baljeit and Dinkity, Biboy quickly wiped his tears and snapped at the two, “What are you two losers doing here?” He tried masking this moment of vulnerability with anger, but it clearly didn't work. Baljeit and Dinkity closed the sliding door, entered the desolate closet, and walked up to Biboy, giving the poor vulnerable pig a warm hug. Biboy tried resisting, but melted into the hug. He cried onto Baljeit and Dinkity’s shoulders, crying like never before. After a few moments of comforting the bawling pig, he felt something he never ever felt before, he felt safe and secured. Baljeit broke the silence first, “We saw what your father did. I’m so sorry, Biboy.” and Dinkity quickly added “We’re here for you, friend.”. Biboy smiled at them and hugged tighter. After a few more years, it was finally time to graduate. At the Farmtropolis Auditorium, Baljeit, Dinkity, and Biboy take their final photo with Johnni and Moocus. Baljeit grew up and fell in love with Rose Ann, a nice and kind pig; together, they had a family of 4. Dinkity on the other hand remained single but became a lawyer dedicated to fighting for Transgender Rights. Lastly, Biboy followed in his father’s footsteps despite their history.
+                    </p>
+
+                </div>
+
+
+                <div class="composition-picture">
+
+                    <img src="shortstory.jpg.jpg"
+                         alt="Courage Over Fear">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TULA POPUP
+    ====================================================== -->
+
+    <div id="tulaPopup" class="popup">
+
+        <div class="popup-box">
+
+            <label for="tula" class="close">&times;</label>
+
+            <h2 class="popup-title">📜 Singil ng Katiwalian</h2>
+
+            <div class="composition">
+
+
+                <div class="composition-text">
+
+                    <p>
+                        Mga silid-aralan na siksikan at kulang sa aklat<br>
+                        Ang mga bata’y nakaupo sa sahig, mga pangarap ay salat.<br>
+                        Ang pondo sa edukasyon na para sa lahat,<br>
+                        Nasa bulsa ng pinuno ng yaman ay nagpapakasapat.
+                    </p>
+
+                    <p>
+                        Sa pampublikong ospital, pilahan ay walang katapusan,<br>
+                        Walang gamot na libre, mayroong luma at sirang gamitan.<br>
+                        Ang perang nakalaan para sa kalusugan<br>
+                        Nilamon ng sistema ng mga sakim sa pamahalaan.
+                    </p>
+
+                    <p>
+                        Kalsadang bako-bako, proyektong hindi natatapos,<br>
+                        Ginamitan ng mumurahing semento kaya madaling maubos.<br>
+                        Mahinang tulay na sa kaunting baha’y gumuguho,<br>
+                        Buhay ng mamamayan ang siyang nakataya at pinupusta rito.
+                    </p>
+
+                    <p>
+                        Ang magsasaka sa bukid, tagaktak ang pawis sa lupa,<br>
+                        Ngunit ayuda sa pataba at binhi ay hindi makuha.<br>
+                        Dahil sa suhulan at smuggling na gawa ng mga buwaya,<br>
+                        Presyo ng bigas ay mataas, mga magsasaka ang kawawa.
+                    </p>
+
+                    <p>
+                        Sa harap ng batas, ang mayaman ay malayang nakakalakad,<br>
+                        Ang mahirap na walang pera, sa rehas ang palad.<br>
+                        Ganito ang mukha ng isyung dulot ng korapsyon,<br>
+                        Ninanakaw ang hustisya, ang bukas, at ang buong nasyon.
+                    </p>
+
+                </div>
+
+
+                <div class="composition-picture">
+
+                    <img src="tula.jpg.jpg" alt="Tula">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SANAYSAY POPUP
+    ====================================================== -->
+
+    <div id="sanaysayPopup" class="popup">
+
+        <div class="popup-box">
+
+            <label for="sanaysay" class="close">&times;</label>
+
+            <h2 class="popup-title">🛡️ Ang Kaligtasan sa Paaralan</h2>
+
+            <div class="composition">
+
+
+                <div class="composition-text">
+
+                    <p>
+                        Mula sa ating pagkabata, madalas nating naririnig na ang ating paaralan ay ang ating pangalawang tahanan at mga guro natin bilang pangalawang magulang. Ang ating silid-aralan ay ang lugar kung saan natin hinuhugis at pinapatalas ang ating kaisipan, dito natutunan makipagkapuwa-tao, at dito rin unti-unting nabubuo ang ating pangarap para sa kinabukasan. Dahil naglalaan ang mga estudyante ng halos walong oras bawat araw sa eskuwelahan, likas lamang na asahan ng mga magulang at mga kabataan na ang paaralan ay isang ligtas na kanlungan, isang lugar na malayo sa panganib, karahasan, pang-aapi, at takot. Ngunit, sa paglipas ng mga taon, kasabay ng mabilis na pagbabago ng lipunan at teknolohiya, ang tradisyonal na kahulugan ng “kaligtasan” sa paaralan ay unti-unti rin nagbabago. Ang seguridad ay hindi lamang usapin ng pagkakaroon ng mataas na bakod, matitibay na kandado, at mahigpit na inspeksiyon ng mga guwardiya sa gate. Sa panahon ngayon, ang mga banta sa kapakanan ng mga mag-aaral ay nagmumula na rin sa digital na mundo.
+                    </p>
+
+                    <p>
+                        Sa usaping pisikal, ang kaligtasan ay nagsisimula sa mismong mga imprastruktura at sistema ng proteksyon sa loob ng eskuwelahan. Ang bawat paaralan ay may obligasyong siguraduhin na ang kanilang mga gusali ay matitibay at ligtas laban sa mga natural na kalamidad tulad ng malalakas na lindol, bagyo, at sunog. Hindi sapat na mayroon lamang nakapaskil na mga emergency exit; kinakailangan ang regular, seryoso, at makatotohanang pagsasagawa ng mga drill upang maging awtomatiko ang tamang tugon ng mga mag-aaral sa oras ng krisis. Bukod dito, hindi rin natin maitatanggi ang mga banta ng krimen mula sa labas ng paaralan. Ang mahigpit na pag-inspeksyon sa mga bag, pagbabantay sa mga gate, at ang kontroladong pagpapapasok ng mga bisita ay ang mga pangunahing depensa upang maiwasan ang pagpasok ng mga mapanganib na indibidwal o ipinagbabawal na gamit na maaaring maglagay sa panganib sa buhay ng marami.
+                    </p>
+
+                    <p>
+                        Subalit, ang tunay na kaligtasan ay hindi lamang nakikita sa kawalan ng sugat sa pisikal na katawan; mas malalim ang usapin kapag pumasok na sa aspekto ng isip at damdamin. Sa kasalukuyan, ang laganap na isyu ng bullying, diskriminasyon, at matinding peer pressure ay nagiging dahilan upang ang paaralan na dapat sana ay kanlungan ay maging sanhi ng takot at depresyon para sa ilang kabataan. Kapag ang isang mag-aaral ay nakakaranas ng pangungutya sa loob ng silid-aralan o kawalan ng suporta mula sa kapaligiran, nawawalan siya ng ganang pumasok at unti-unting bumababa ang kanyang tiwala sa sarili. Dito pumapasok ang kahalagahan ng mga aktibong guidance office at mga programang nagtataguyod ng kalusugang mental. Ang isang ligtas na paaralan ay isang komunidad kung saan malayang nailalahad ng mga mag-aaral ang kanilang saloobin nang walang takot na sila ay huhusgahan.
+                    </p>
+
+                    <p>
+                        Sa pag-unlad ng makabagong teknolohiya, ang mga mapanganib sa kaligtasan ay tuluyan na ring lumampas sa silid-aralan at pumasok sa digital na espasyo. Dahil sa paggamit ng internet para sa mga proyekto at pakikipag-ugnayan, ang panganib ay literal na nasa dulo na ng mga daliri ng mga mag-aaral. Ang cyberbullying, online harassment, at ang mabilis na pagkalat ng paninira sa social media ay mga bagong kaaway na hindi nakikita ng mga pisikal na guwardiya sa gate. Ang masakit sa ganitong uri ng banta, hindi ito natatapos kapag tumunog na ang kampana para sa uwian; dinadala ito ng mag-aaral hanggang sa kanyang pagtulog sa kaniyang kuwarto. Kaya naman, malaking hamon sa mga institusyon ngayon ang pagtuturo ng tamang paggamit ng teknolohiya upang ma-protektahan sila mula sa mga mapanirang elemento sa online.
+                    </p>
+
+                    <p>
+                        Sa kabuuan, malinaw na ang usapin ng kaligtasan sa paaralan ay hindi isang simpleng paksa na may iisang mabilis na solusyon. Ito ay isang malawak, komplikado, at patuloy na nagbabagong hamon na nangangailangan ng kolektibong pagkilos at pagkakaisa mula sa pamahalaan, administrasyon ng paaralan, mga guro, magulang, at maging sa mga mag-aaral mismo. Hindi sapat na ang isang kabataan ay nakaupo sa loob ng silid-aralan at nakakakuha ng matataas na marka. Ang tunay at epektibong edukasyon ay nagaganap lamang kapag ang isang mag-aaral ay nag-aaral nang may kapanatagan sa kanyang isip at kapayapaan sa kanyang puso. Ang bawat polisiya laban sa karahasan at bawat gabay para sa kalusugang mental ay dapat magsilbing proteksyon upang manatiling buhay ang pangarap ng susunod na henerasyon.
+                    </p>
+
+                    <p>
+                        Habang patuloy na nagbabago ang takbo ng ating lipunan at umuusbong ang mga bagong mukha ng panganib sa ating paligid, nararapat lamang na hindi tayo maging kumpante. Ang proteksyon sa mga kabataan ay hindi nagtatapos sa mahigpit na seguridad. Kaya naman, habang pinagmamasdan natin ang bawat mag-aaral na pumapasok sa pinto ng paaralan bitbit ang kanilang mga bag at pangarap, may isang mabigat na responsibilidad na nakapatong sa ating mga balikat upang pagnilayan, suriin, at bigyang-linaw ang nag-iisang mahalagang katanungan. Ligtas pa rin ba ang mga paaralan?
+                    </p>
+
+                </div>
+
+
+                <div class="composition-picture">
+
+                    <img src="sanaysay.jpg.jpg"
+                         alt="School Safety">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
